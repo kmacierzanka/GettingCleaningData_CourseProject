@@ -1,6 +1,9 @@
 # Script for creating two tidy data sets (from steps 4 and 5 in the course
 # project instructions)
 
+# the dplyr package is found in tidyverse
+library(tidyverse)
+
 # download zipped file to working directory
 download.file("https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip",
               destfile = "./zippedfolder.zip", method = "curl")
@@ -64,10 +67,26 @@ levels(xcomplete$activityname) <- actnames
 # create the data required at step 4
 meanstdcols <- as.integer(grep("([Mm]ean|[Ss]td)", names(xcomplete)))
 step4data <- as_tibble(xcomplete[, c(1, 2, meanstdcols)])
+# set the id variable to a factor so we can group by it (this will help in step 5)
+step4data$id <- as.factor(step4data$id)
 
-# creates a tidy data set with the average of each variable for each activity
+# create a tidy data set with the average of each variable for each activity
 # and each subject
-step5data <- step4data
+step5data <- step4data %>%
+        group_by(activityname, id) %>%
+        summarise_all(mean, na.rm = TRUE)
+# change the names of variables 3:88 to reflect the summary function to which
+# they were passed
+step5data_varnames <- names(step5data[, 3:88])
+step5data_varnames <- as.character(sapply(step5data_varnames, function(x)
+        paste("mean of", x, sep = " ")))
+# insert back the new variable names
+names(step5data) <- c("activityname", "id", step5data_varnames)
+
+# create .txt file of step5data to working directory
+write.table(step5data, "./step5data.txt", row.names = FALSE)
+
+
 
 
 
