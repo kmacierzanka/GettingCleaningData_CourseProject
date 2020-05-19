@@ -1,5 +1,5 @@
-# Getting and Cleaning Data
-## Week 4 Course Project
+# Week 4 Course Project
+## From "Getting and Cleaning Data"
 
 In this project I had to read text files about test and train subjects who wore a smartphone on their waist. There were 30 volunteers in total who performed 6 possible activities. There was a total of 10299 observations.
 
