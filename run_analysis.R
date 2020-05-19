@@ -60,6 +60,10 @@ actnames <- as.character(activity[,2])
 # now we can set the new levels
 levels(xcomplete$activityname) <- actnames
 
-# extract only the variables concerned with means or standard deviations
-# 
+# extract only the variables concerned with means or standard deviations to
+# create the data required at step 4
+meanstdcols <- as.integer(grep("([Mm]ean|[Ss]td)", names(xcomplete)))
+step4data <- as_tibble(xcomplete[, c(1, 2, meanstdcols)])
+
+
 
