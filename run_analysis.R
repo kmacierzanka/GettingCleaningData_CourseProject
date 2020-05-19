@@ -1,8 +1,11 @@
+# Script for creating two tidy data sets (from steps 4 and 5 in the course
+# project instructions)
+
 # download zipped file to working directory
 download.file("https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip",
               destfile = "./zippedfolder.zip", method = "curl")
 
-# create test dataset:
+# create test data:
 # create xtest object
 xtest <- read.table(unz("./zippedfolder.zip", "UCI HAR Dataset/test/X_test.txt"))
 xtest <- as_tibble(xtest)
@@ -13,10 +16,13 @@ subjecttest <- read.table(unz("./zippedfolder.zip", "UCI HAR Dataset/test/subjec
 # create ytest object
 ytest <- read.table(unz("./zippedfolder.zip", "UCI HAR Dataset/test/y_test.txt"))
 
-# add subjecttest as an 'id' to xtest
+# add subjecttest as an 'id' variable to xtest
 xtest <- mutate(xtest, id = subjecttest$V1) %>% select(id, V1:V561)
 
-# create train dataset
+# add ytest as an 'activityname' variable to xtest
+xtest <- mutate(xtest, activityname = ytest$V1) %>% select(id, activityname, V1:V561)
+
+# create train data
 # create xtrain object
 xtrain <- read.table(unz("./zippedfolder.zip", "UCI HAR Dataset/train/X_train.txt"))
 xtrain <- as_tibble(xtrain)
@@ -27,8 +33,11 @@ subjecttrain <- read.table(unz("./zippedfolder.zip", "UCI HAR Dataset/train/subj
 # create ytrain object
 ytrain <- read.table(unz("./zippedfolder.zip", "UCI HAR Dataset/train/y_train.txt"))
 
-# add subjecttrain as an 'id' to xtrain
+# add subjecttrain as an 'id' variable to xtrain
 xtrain <- mutate(xtrain, id = subjecttrain$V1) %>% select(id, V1:V561)
+
+# add ytrain as an 'activityname' variable to xtrain
+xtrain <- mutate(xtrain, activityname = ytrain$V1) %>% select(id, activityname, V1:V561)
 
 # create complete dataset
 xcomplete <- as_tibble(rbind(xtrain, xtest))
@@ -39,12 +48,18 @@ varnames <- read.table(unz("./zippedfolder.zip", "UCI HAR Dataset/features.txt")
 # we only need the second column of this dataframe and we need it as a
 # character vector
 varnames <- as.character(varnames[,2])
-# now we can set the names of xcomplete
-names(xcomplete) <- c("id", varnames)
+# now we can set the variable names of xcomplete
+names(xcomplete) <- c("id", "activityname", varnames)
 
-
-
-#
-# create activitylabels object
+# name the activityname observations with the correct activity labels
+# create activity object
 activity <- read.table(unz("./zippedfolder.zip", "UCI HAR Dataset/activity_labels.txt"))
+xcomplete$activityname <- as.factor(xcomplete$activityname)
+# we need the second column of activity as a character vector for the new level names
+actnames <- as.character(activity[,2])
+# now we can set the new levels
+levels(xcomplete$activityname) <- actnames
+
+# extract only the variables concerned with means or standard deviations
+# 
 
