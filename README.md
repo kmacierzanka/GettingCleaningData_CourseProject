@@ -18,5 +18,14 @@ This process is repeated for the train data, creating an object `xtrain`.
 ### Merge test and train data
 The two data are merged. This is done using rbind() as they are simply two collections of the same subject group. The script creates this as an object `xcomplete`.
 
+### And variable names
+The 563 variable names are added to `xcomplete`. The first two are `id` and `activityname`, and the remaining 561 can be found in the features.txt file in the original zipped file.  
+
+
 ### Set descriptive activity names
-Up until now, the `activityname` variable in `xcomplete` features numerical observations (1-6). These specific integers correspond to a given activity. The script labels the `activityname` observations with the labels provided in the original zipped file. 
+Up until now, the `activityname` variable in `xcomplete` features numerical observations (1-6). These specific integers correspond to a given activity. The script labels the `activityname` observations with the labels provided in the original zipped file.
+
+### Extract measurements on the mean and standard deviation
+Only variables concerning mean (`"[Mm]ean"`) or standard deviation (`"[Ss]td"`) observations are extracted from `xcomplete` to create `step4data`. The `id` and `activityname` variables are also found in `step4data`.  
+
+`step4data`, as the name implies, is the tibble corresponding to step 4 in the course project instructions.
