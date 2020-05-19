@@ -2,13 +2,15 @@
 
 This code book describes each variable in the `step5data.txt` file which is created into the working directory by `run_analysis.R`.
 
-### Variables
+## Introduction
 
-There are 180 observations and 88 variables in `step5data`. The names of variables 3-88 were created using the `paste()` function (as described in the `README.md` file). Their names follow the general format of "mean of ..." where the "..." corresponds to the original variable names in the zipped files. The descriptions below are taken based on the original zipped file `features_info.txt`.  
+There are 180 observations and 88 variables in `step5data`. The names of variables 3-88 were created using the `paste()` function (as described in the `README.md` file). Their names follow the general format of "mean of ..." where the "..." corresponds to the original variable names in the zipped files. The descriptions below are based on the original zipped file `features_info.txt`.  
 
 Each observation is `step5data` is mean of observations for each activity and each subject. The description of this calculation is provided in `README.md`.  
 
 The variable column number is followed by the variable name in quotiation `""` marks.  
+
+### Variables and Descriptions
 
 [1] "activityname" - the name of physical activity during which smartphone was active (one of "WALKING", "WALKING_UPSTAIRS", "WALKING_DOWNSTAIRS", "SITTING", "STANDING" or LAYING")  
 [2] "id" - subject id (1-30)  
