@@ -65,5 +65,9 @@ levels(xcomplete$activityname) <- actnames
 meanstdcols <- as.integer(grep("([Mm]ean|[Ss]td)", names(xcomplete)))
 step4data <- as_tibble(xcomplete[, c(1, 2, meanstdcols)])
 
+# creates a tidy data set with the average of each variable for each activity
+# and each subject
+step5data <- step4data
+
 
 
