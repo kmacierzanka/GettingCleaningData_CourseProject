@@ -16,7 +16,7 @@ First, the script creates test data called `xtest` and adds the subject `id` var
 This process is repeated for the train data, creating an object `xtrain`.
 
 ### Merge test and train data
-The two data need are merged. This is done using rbind() as they are simply two collections of the same subject group. The script creates this as an object `xcomplete`.
+The two data are merged. This is done using rbind() as they are simply two collections of the same subject group. The script creates this as an object `xcomplete`.
 
 ### Set descriptive activity names
-Up until now, the `activityname` variable features numerical observations (1-6). These specific integers correspond to a given activity. The script labels the `activityname` observations with the labels provided in the original zipped file. 
+Up until now, the `activityname` variable in `xcomplete` features numerical observations (1-6). These specific integers correspond to a given activity. The script labels the `activityname` observations with the labels provided in the original zipped file. 
